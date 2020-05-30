@@ -1,0 +1,38 @@
+
+  
+  .image {
+    /* width: 400px; */
+     height: 705px;
+    padding-top: 20px; 
+  }
+  
+  .Day-image {
+    background-color: #99ffff;
+  }
+  
+  .Night-image {
+    background-color: black;
+  }
+  ul.removeBullets{
+    list-style-type: none;
+    font-size: 36px;;
+    
+
+  }
+  
+ 
+  
+  button {
+    border-radius: 15px;
+    margin-top: 150px;
+    font: 20px "Lobster Two";
+    margin: 0 auto 0;
+    /* margin-left:25%; */
+  }
+  
+  button:hover {
+    background-color: #f2f2f2;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px grey;
+  }
+  

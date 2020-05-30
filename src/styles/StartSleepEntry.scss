@@ -1,0 +1,30 @@
+.mappedSleepEntry {
+    margin          : 0 auto;
+    display         : flex;
+    flex-direction  : column;
+    justify-content : space-around;
+    background-color: #2A2A2A;
+    color           : white;
+    padding         : 5px;
+}
+
+.deleteBtn {
+    margin-top      : 0.7rem;
+    font-size       : 1rem;
+    color           : red;
+    background-color: rgba(0, 0, 0, 0.1);
+    border          : 1px solid red;
+    height          : 2rem;
+
+    &:hover {
+        cursor          : pointer;
+        background-color: red;
+        color           : white;
+        border          : 1px solid white;
+        opacity         : 0.9;
+    }
+}
+
+// .MuiInputBase-root {
+//     color: white !important;
+// }

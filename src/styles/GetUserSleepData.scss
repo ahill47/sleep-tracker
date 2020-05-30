@@ -1,0 +1,12 @@
+.sleepData {
+    padding: 0.5rem 0;
+    color  : white !important;
+
+    .MuiInputBase-root {
+        color: white !important;
+    }
+}
+
+.sleepData:first-child {
+    padding-top: 0;
+}
