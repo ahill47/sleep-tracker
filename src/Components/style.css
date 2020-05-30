@@ -8,6 +8,7 @@
   
   .Day-image {
     background-color: #99ffff;
+    color:black;
   }
   
   .Night-image {
@@ -16,7 +17,7 @@
   ul.removeBullets{
     list-style-type: none;
     font-size: 36px;;
-    
+
 
   }
   

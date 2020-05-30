@@ -1,7 +1,3 @@
-
-
-
-
 import React, { useState, useEffect } from 'react';
 import SleepGraph from './SleepGraph';
 import GetUserSleepData from './GetUserSleepData';
@@ -17,7 +13,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Slide from '@material-ui/core/Slide';
 import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
-// import Axios from 'axios';
 import { axiosWithAuth } from './axiosWithAuth';
 
 const Transition = React.forwardRef(function Transition(props, ref) {
@@ -86,41 +81,28 @@ function getDayOfMonth() {
 }
 
 const Dashboard = () => {
+  const userId = localStorage.getItem("id")
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
 
   const [snackOpen, setSnackOpen] = useState(false);
-
   const username = localStorage.getItem('userName');
   const alertMessage = localStorage.getItem('message');
 
-  // useEffect(() => {
-  //     setSnackOpen(true);
-  // }, []);
 
-  // useEffect(() => {
-  //   setSnackOpen(true);
-  //   axiosWithAuth()
-  //     .get(`https://sleeptracker4.herokuapp.com/sleep/`)
-  //     .then((response) => {
-  //       // setData(response.data);
-  //       console.log('RES-USER', response.data);
-  //       const resData = response.data;
-  //       const userData = resData.filter((user) =>
-  //         user.username.includes(username)
-  //       );
-  //       const userID = userData[0].id;
-  //       console.log('HERE', userID);
-  //       axiosWithAuth()
-  //         .get(`https://sleeptracker4.herokuapp.com/sleep/${userID}/logs`)
-  //         .then((res) => {
-  //           console.log('USER RES', res);
-  //           setData(res.data);
-  //         })
-  //         .catch((err) => err);
-  //     })
-  //     .catch((err) => console.log(err));
-  // }, []);
+
+
+  useEffect(() => {
+    setSnackOpen(true);
+    axiosWithAuth()
+      .get(`/sleep/${userId}`)
+      .then((response) => {
+       setData(response.data);
+      })
+      .catch((err) => console.log(err));
+  },[open]);
+
+
 
   const entryDialogOpen = () => {
     setOpen(true);
@@ -137,8 +119,6 @@ const Dashboard = () => {
 
     setSnackOpen(false);
   };
-
-  // const message = localStorage.getItem("message");
 
   return (
     <div>
@@ -165,16 +145,16 @@ const Dashboard = () => {
             </DialogTitle>
             <DialogContent>
               <DialogContentText id='alert-dialog-slide-description'>
-                <AddEntry />
+                <AddEntry handleClose={handleClose}/>
               </DialogContentText>
             </DialogContent>
             <DialogActions>
-              <Button onClick={handleClose} color='primary'>
+              {/* <Button onClick={handleClose} color='primary'>
                 Cancel
-              </Button>
+              </Button> */}
               <Button onClick={handleClose} color='primary'>
-                Add
-              </Button>
+               Complete
+              </Button> 
             </DialogActions>
           </Dialog>
           <Snackbar
@@ -188,7 +168,7 @@ const Dashboard = () => {
           </Snackbar>
         </div>
         <div className='right'>
-          <GetUserSleepData userData={data} />
+          <GetUserSleepData userData={data} handleClose={entryDialogOpen} />
         </div>
       </div>
     </div>
