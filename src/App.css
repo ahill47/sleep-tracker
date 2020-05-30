@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+.textDiv {
+  color     : #39869D;
+  margin-top: 7rem;
+}
+
+.loaderDiv {
+  position : fixed;
+  top      : 50%;
+  left     : 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loader {
+  width : 100%;
+  margin: 0 auto;
+
+}
