@@ -4,17 +4,19 @@ import StartSleepEntry from "./modals/StartSleepEntry";
 import '../styles/GetUserSleepData.scss'
 
 class GetUserSleepData extends Component {
+   
     render () {
+        const {data} = this.props.userData
         return (
             <div>
-                {this.props.userData.map((user) => (
+                {data && data.map((user) => (
                     <div className="sleepData">
-                        <StartSleepEntry />
+                     <StartSleepEntry user={user} handleClose={this.props.handleClose} /> 
                     </div>
                 ))}
             </div>
         );
     }
 }
-
+ 
 export default GetUserSleepData;
