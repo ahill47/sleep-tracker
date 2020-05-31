@@ -42,9 +42,9 @@ const AddEntry = (props) => {
   });
   const [data, setData] = useState([]);
 
-  const handleDateChange = (date) => {
-    setFormState(date);
-  };
+  // const handleDateChange = (date) => {
+  //   setFormState({...formState});
+  // };
 
   const handleSubmit = (e) => {
     const {
@@ -79,14 +79,42 @@ const AddEntry = (props) => {
     setFormState({ ...formState, [event.target.name]: event.target.value });
   };
 
-  const inputChanged = (event) => {
-    // event.persist();
-    const newFormData = {
+  // const inputChanged = (event) => {
+  //   // event.persist();
+  //   const newFormData = {
+  //     ...formState,
+  //     [event.target.name]: event.target.value,
+  //   };
+  //   validateChange(event);
+  //   setFormState(newFormData);
+  // };
+
+  const startDateChanged = (date) => {
+    setFormState({
       ...formState,
-      [event.target.name]: event.target.value,
-    };
-    validateChange(event);
-    setFormState(newFormData);
+      startDate: date,
+    });
+  };
+
+  const startTimeChanged = (date) => {
+    setFormState({
+      ...formState,
+      startTime: date,
+    });
+  };
+
+  const endDateChanged = (date) => {
+    setFormState({
+      ...formState,
+      endDate: date,
+    });
+  };
+
+  const endTimeChanged = (date) => {
+    setFormState({
+      ...formState,
+      endTime: date,
+    });
   };
 
   // state for errors
@@ -94,7 +122,7 @@ const AddEntry = (props) => {
     startDate: '',
     startTime: '',
     endDate: '',
-    endtime: '',
+    endTime: '',
     moodOne: '',
     moodTwo: '',
   });
@@ -143,7 +171,7 @@ const AddEntry = (props) => {
             id='date-picker-dialog'
             label='Start Date'
             value={formState.startDate}
-            onChange={handleDateChange}
+            onChange={startDateChanged}
           />
           <TimePicker
             name='startTime'
@@ -151,7 +179,7 @@ const AddEntry = (props) => {
             id='time-picker'
             label='Start Time'
             value={formState.startTime}
-            onChange={handleDateChange}
+            onChange={startTimeChanged}
           />
           <DatePicker
             name='endDate'
@@ -159,7 +187,7 @@ const AddEntry = (props) => {
             id='date-picker-dialog'
             label='End Date'
             value={formState.endDate}
-            onChange={handleDateChange}
+            onChange={endDateChanged}
           />
           <TimePicker
             name='endTime'
@@ -167,7 +195,7 @@ const AddEntry = (props) => {
             id='time-picker'
             label='End Time'
             value={formState.endTime}
-            onChange={handleDateChange}
+            onChange={endTimeChanged}
           />
         </MuiPickersUtilsProvider>
         {/* <FormLabel htmlFor='dastartDate'>

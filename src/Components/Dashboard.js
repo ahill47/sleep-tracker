@@ -121,7 +121,7 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <div className='dash'>
         <div className='left'>
-          <SleepGraph />
+          <SleepGraph logs={data.data} />
           <Button
             className='entryBtn'
             variant='outlined'
