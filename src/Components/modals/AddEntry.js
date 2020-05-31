@@ -7,6 +7,13 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormControl from '@material-ui/core/FormControl';
 import { axiosWithAuth } from '../axiosWithAuth';
+import 'date-fns';
+import MomentUtils from '@date-io/moment';
+import {
+  MuiPickersUtilsProvider,
+  TimePicker,
+  DatePicker,
+} from '@material-ui/pickers';
 
 const AddEntry = (props) => {
   const userId = localStorage.getItem('id');
@@ -21,17 +28,23 @@ const AddEntry = (props) => {
   let optionsTime = { timeStyle: 'medium', hour12: false };
   let dateString = d.toLocaleString('en-US', optionsDate);
   let timeString = d.toLocaleString('en-US', optionsTime);
+  const tomorrow = new Date();
+  tomorrow.setDate(new Date().getDate() + 1);
 
   // Form State
   const [formState, setFormState] = useState({
-    startDate: 'December 4, 2020',
-    startTime: '07:15:00',
-    endDate: 'December 3, 2020',
-    endTime: '08:15:00',
+    startDate: new Date(),
+    startTime: new Date(),
+    endDate: tomorrow,
+    endTime: tomorrow,
     moodOne: '1',
-    moodTwo: '2',
+    moodTwo: '1',
   });
   const [data, setData] = useState([]);
+
+  const handleDateChange = (date) => {
+    setFormState(date);
+  };
 
   const handleSubmit = (e) => {
     const {
@@ -44,8 +57,8 @@ const AddEntry = (props) => {
     } = formState;
     const sleepData = {
       date: startDate,
-      sleepStart: `${startDate} ${startTime}`,
-      sleepEnd: `${endDate} ${endTime}`,
+      sleepStart: `${startDate}`,
+      sleepEnd: `${endDate}`,
       duration: 10,
       moodBeforeSleep: moodOne,
       moodAfterSleep: moodTwo,
@@ -67,7 +80,7 @@ const AddEntry = (props) => {
   };
 
   const inputChanged = (event) => {
-    event.persist();
+    // event.persist();
     const newFormData = {
       ...formState,
       [event.target.name]: event.target.value,
@@ -123,8 +136,41 @@ const AddEntry = (props) => {
           flexDirection: 'column',
           justifyContent: 'space-around',
         }}>
-        <FormLabel htmlFor='dastartDatete'>
-          {' '}
+        <MuiPickersUtilsProvider utils={MomentUtils}>
+          <DatePicker
+            name='startDate'
+            margin='normal'
+            id='date-picker-dialog'
+            label='Start Date'
+            value={formState.startDate}
+            onChange={handleDateChange}
+          />
+          <TimePicker
+            name='startTime'
+            margin='normal'
+            id='time-picker'
+            label='Start Time'
+            value={formState.startTime}
+            onChange={handleDateChange}
+          />
+          <DatePicker
+            name='endDate'
+            margin='normal'
+            id='date-picker-dialog'
+            label='End Date'
+            value={formState.endDate}
+            onChange={handleDateChange}
+          />
+          <TimePicker
+            name='endTime'
+            margin='normal'
+            id='time-picker'
+            label='End Time'
+            value={formState.endTime}
+            onChange={handleDateChange}
+          />
+        </MuiPickersUtilsProvider>
+        {/* <FormLabel htmlFor='dastartDate'>
           Start date:
           <Input
             name='startDate'
@@ -134,7 +180,6 @@ const AddEntry = (props) => {
           />
         </FormLabel>
         <FormLabel htmlFor='startTime'>
-          {' '}
           Start Time:
           <Input
             name='startTime'
@@ -154,7 +199,6 @@ const AddEntry = (props) => {
           />
         </FormLabel>
         <FormLabel htmlFor='endTime'>
-          {' '}
           End Time:
           <Input
             name='endTime'
@@ -162,7 +206,7 @@ const AddEntry = (props) => {
             defaultValue={formState.endTime}
             placeholder='end time'
           />
-        </FormLabel>
+        </FormLabel> */}
         <br></br>
         <FormControl component='fieldset'>
           <FormLabel component='legend'>Mood Before Sleep</FormLabel>
