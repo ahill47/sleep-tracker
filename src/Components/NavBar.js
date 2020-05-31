@@ -14,7 +14,7 @@ export default function NavBar() {
     const username = localStorage.getItem("message")
     return (
         <div className="nav">
-                        <p style={{fontSize:'30px'}}>{username}</p>
+                        <p> SleepTracker</p>
         
                     <br></br>
                        <div className="navLinks">  
