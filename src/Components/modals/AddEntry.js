@@ -59,7 +59,7 @@ const AddEntry = (props) => {
         console.log(res, 'successfully added');
       })
       .catch((err) => console.log('Oops', err));
-    //props.handleClose()
+    // props.handleClose();
   };
 
   const handleMoodChange = (event) => {

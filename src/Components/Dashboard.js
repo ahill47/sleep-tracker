@@ -81,13 +81,13 @@ function getDayOfMonth() {
 }
 
 const Dashboard = () => {
-  const userId = localStorage.getItem('id');
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
-
   const [snackOpen, setSnackOpen] = useState(false);
+  const [wasOpened, setWasOpened] = useState(false);
   const username = localStorage.getItem('userName');
   const alertMessage = localStorage.getItem('message');
+  const userId = localStorage.getItem('id');
 
   useEffect(() => {
     setSnackOpen(true);
@@ -97,7 +97,7 @@ const Dashboard = () => {
         setData(response.data);
       })
       .catch((err) => console.log(err));
-  }, [open]);
+  }, []);
 
   const entryDialogOpen = () => {
     setOpen(true);
