@@ -9,7 +9,6 @@ import Signin from './Authentication/Signin';
 import ForgotPassword from './Authentication/ForgotPassword';
 import Signout from './Authentication/Signout';
 import Dashboard from './Components/Dashboard';
-import CreateSleepEntry from './Components/CreateSleepEntry';
 import Image from './Components/Image';
 
 import './App.css';

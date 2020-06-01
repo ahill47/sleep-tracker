@@ -97,7 +97,7 @@ const Dashboard = () => {
         setData(response.data);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [open]);
 
   const entryDialogOpen = () => {
     setOpen(true);
@@ -147,9 +147,9 @@ const Dashboard = () => {
               {/* <Button onClick={handleClose} color='primary'>
                 Cancel
               </Button> */}
-              <Button onClick={handleClose} color='primary'>
+              {/* <Button onClick={handleClose} color='primary'>
                 Complete
-              </Button>
+              </Button> */}
             </DialogActions>
           </Dialog>
           <Snackbar

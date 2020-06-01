@@ -9,38 +9,54 @@ import FormControl from '@material-ui/core/FormControl';
 import { axiosWithAuth } from '../axiosWithAuth';
 import 'date-fns';
 import MomentUtils from '@date-io/moment';
+import Moment from 'moment';
 import {
   MuiPickersUtilsProvider,
   TimePicker,
   DatePicker,
 } from '@material-ui/pickers';
 
+//for remake with duration
+// import Moment from 'react-moment';
+// import 'moment-timezone';
+{
+  /* <Input
+onChange={durationChanged}
+required
+type='number'
+value={formState.duration}></Input> */
+}
+
 const AddEntry = (props) => {
   const userId = localStorage.getItem('id');
 
-  let d = new Date();
-  let optionsDate = {
-    dateStyle: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  };
-  let optionsTime = { timeStyle: 'medium', hour12: false };
-  let dateString = d.toLocaleString('en-US', optionsDate);
-  let timeString = d.toLocaleString('en-US', optionsTime);
-  const tomorrow = new Date();
-  tomorrow.setDate(new Date().getDate() + 1);
+  const date = new Moment();
+
+  console.log('USE THIS ONE', date.format('HH:mm:ss'));
+
+  const tomorrow = new Moment().add(1, 'day');
 
   // Form State
   const [formState, setFormState] = useState({
-    startDate: new Date(),
-    startTime: new Date(),
-    endDate: tomorrow,
-    endTime: tomorrow,
+    startDate: date.format('LL'),
+    startTime: new Moment(date, 'HH:mm:ss'),
+    duration: '',
+    endDate: tomorrow.format('LL'),
+    endTime: new Moment(tomorrow, 'HH:mm:ss'),
     moodOne: '1',
     moodTwo: '1',
   });
-  const [data, setData] = useState([]);
+
+  // let d = new Date();
+  // let optionsDate = {
+  //   dateStyle: 'long',
+  //   year: 'numeric',
+  //   month: 'long',
+  //   day: 'numeric',
+  // };
+  // let optionsTime = { timeStyle: 'medium', hour12: false };
+  // let dateString = d.toLocaleString('en-US', optionsDate);
+  // let timeString = d.toLocaleString('en-US', optionsTime);
 
   // const handleDateChange = (date) => {
   //   setFormState({...formState});
@@ -57,37 +73,55 @@ const AddEntry = (props) => {
     } = formState;
     const sleepData = {
       date: startDate,
-      sleepStart: `${startDate}`,
-      sleepEnd: `${endDate}`,
+      sleepStart: `${new Moment(startDate).format('LL')} ${new Moment(
+        startTime
+      ).format('HH:mm:ss')}`,
+      sleepEnd: `${new Moment(endDate).format('LL')} ${new Moment(
+        endTime
+      ).format('HH:mm:ss')}`,
       duration: 10,
       moodBeforeSleep: moodOne,
       moodAfterSleep: moodTwo,
       user_id: userId,
     };
     e.preventDefault();
-    console.log(sleepData);
+    console.log('DATA IN FORM', sleepData);
     axiosWithAuth()
       .post(`/sleep`, sleepData)
       .then((res) => {
         console.log(res, 'successfully added');
+        props.handleClose();
       })
       .catch((err) => console.log('Oops', err));
-    // props.handleClose();
   };
 
   const handleMoodChange = (event) => {
     setFormState({ ...formState, [event.target.name]: event.target.value });
   };
 
-  // const inputChanged = (event) => {
-  //   // event.persist();
-  //   const newFormData = {
+  // const durationChanged = (event) => {
+  //   event.preventDefault();
+  //   setFormState({
   //     ...formState,
-  //     [event.target.name]: event.target.value,
-  //   };
-  //   validateChange(event);
-  //   setFormState(newFormData);
+  //     duration: parseInt(event.target.value),
+  //   });
+  //   // validateChange(event);
   // };
+
+  const calculateDuration = () => {
+    let date1 = new Date(formState.sleepStart).getHours();
+    let date2 = new Date(formState.sleepEnd).getHours();
+
+    // if (props.logs) {
+    //   console.log('LOGSSS', props.logs.reverse());
+    //   const testDiff = Math.abs(
+    //     (new Date(props.logs[0].sleepStart).getTime() -
+    //       new Date(props.logs[0].sleepEnd).getTime()) /
+    //       36e5
+    //   );
+    //   console.log('DIFFERENCE', new Date(props.logs[0].sleepStart).getHours());
+    // }
+  };
 
   const startDateChanged = (date) => {
     setFormState({
@@ -181,6 +215,11 @@ const AddEntry = (props) => {
             value={formState.startTime}
             onChange={startTimeChanged}
           />
+          {/* <Input
+            onChange={durationChanged}
+            required
+            type='number'
+            value={formState.duration}></Input> */}
           <DatePicker
             name='endDate'
             margin='normal'

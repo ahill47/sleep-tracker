@@ -1,20 +1,20 @@
 import React, { Component } from 'react';
-import { Card } from 'material-ui-core';
 import StartSleepEntry from './modals/StartSleepEntry';
 import '../styles/GetUserSleepData.scss';
 
 class GetUserSleepData extends Component {
   render() {
     const { data } = this.props.userData;
+
     return (
       <div>
         {data &&
-          data.reverse().map((user, i) => {
+          data.map((user, i, arr) => {
             if (i < 7) {
               return (
-                <div className='sleepData' key={user.id}>
+                <div className='sleepData' key={arr[arr.length - 1 - i].id}>
                   <StartSleepEntry
-                    user={user}
+                    user={arr[arr.length - 1 - i]}
                     handleClose={this.props.handleClose}
                   />
                 </div>

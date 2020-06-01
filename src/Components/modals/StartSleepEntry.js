@@ -80,9 +80,9 @@ const StartSleepEntry = ({ user, handleClose }) => {
       .delete(`/sleep/${id}`)
       .then((res) => {
         console.log(res);
+        window.location.reload();
       })
       .catch((err) => console.log('Oops', err));
-    window.location.reload();
   };
 
   console.log(user, 'user');
@@ -218,7 +218,6 @@ const StartSleepEntry = ({ user, handleClose }) => {
           Delete
         </button>
         <button className='editBtn' onClick={() => handleEdit(user.id)}>
-          {' '}
           Edit
         </button>
       </div>
