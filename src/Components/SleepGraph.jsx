@@ -13,150 +13,138 @@ import axiosWithAuth from './axiosWithAuth';
 import Moment from 'moment';
 
 const SleepGraph = ({ logs }) => {
-  const fakeRes = {
-    id: 1,
-    username: 'joedoe',
-    data: [
-      {
-        id: 1,
-        date: '2020-04-21',
-        sleepStart: '2020-04-21 21:15:00.000',
-        sleepEnd: '2020-04-22 07:15:00.000',
-        duration: 6,
-        moodBeforeSleep: 1,
-        moodAfterSleep: 3,
-        sleepScore: 7,
-        user_id: 1,
-      },
-      {
-        id: 2,
-        date: '2020-04-22',
-        sleepStart: '2020-04-22 021:15:00.000',
-        sleepEnd: '2020-04-23 07:15:00',
-        duration: 4,
-        moodBeforeSleep: 4,
-        moodAfterSleep: 4,
-        sleepScore: 5.5,
-        user_id: 1,
-      },
-      {
-        id: 3,
-        date: '2020-04-23',
-        sleepStart: '2020-04-21 21:15:00.000',
-        sleepEnd: '2020-04-22 07:15:00.000',
-        duration: 8,
-        moodBeforeSleep: 2,
-        moodAfterSleep: 2,
-        sleepScore: null,
-        user_id: 1,
-      },
-      {
-        id: 4,
-        date: '2020-04-24',
-        sleepStart: '2020-04-21 21:15:00.000',
-        sleepEnd: '2020-04-22 07:15:00.000',
-        duration: 8,
-        moodBeforeSleep: 1,
-        moodAfterSleep: 3,
-        sleepScore: 7,
-        user_id: 1,
-      },
-      {
-        id: 5,
-        date: '2020-04-25',
-        sleepStart: '2020-04-22 021:15:00.000',
-        sleepEnd: '2020-04-23 07:15:00',
-        duration: 7,
-        moodBeforeSleep: 4,
-        moodAfterSleep: 4,
-        sleepScore: 5.5,
-        user_id: 1,
-      },
-      {
-        id: 6,
-        date: '2020-04-26',
-        sleepStart: '2020-04-21 21:15:00.000',
-        sleepEnd: '2020-04-22 07:15:00.000',
-        duration: 6,
-        moodBeforeSleep: 2,
-        moodAfterSleep: 2,
-        sleepScore: null,
-        user_id: 1,
-      },
-      {
-        id: 7,
-        date: '2020-04-27',
-        sleepStart: '2020-04-21 21:15:00.000',
-        sleepEnd: '2020-04-22 07:15:00.000',
-        duration: 4,
-        moodBeforeSleep: 2,
-        moodAfterSleep: 2,
-        sleepScore: null,
-        user_id: 1,
-      },
-    ],
-  };
-  const [useData, setUseData] = useState([]);
+  // const fakeRes = {
+  //   id: 1,
+  //   username: 'joedoe',
+  //   data: [
+  //     {
+  //       id: 1,
+  //       date: '2020-04-21',
+  //       sleepStart: '2020-04-21 21:15:00.000',
+  //       sleepEnd: '2020-04-22 07:15:00.000',
+  //       duration: 6,
+  //       moodBeforeSleep: 1,
+  //       moodAfterSleep: 3,
+  //       sleepScore: 7,
+  //       user_id: 1,
+  //     },
+  //     {
+  //       id: 2,
+  //       date: '2020-04-22',
+  //       sleepStart: '2020-04-22 021:15:00.000',
+  //       sleepEnd: '2020-04-23 07:15:00',
+  //       duration: 4,
+  //       moodBeforeSleep: 4,
+  //       moodAfterSleep: 4,
+  //       sleepScore: 5.5,
+  //       user_id: 1,
+  //     },
+  //     {
+  //       id: 3,
+  //       date: '2020-04-23',
+  //       sleepStart: '2020-04-21 21:15:00.000',
+  //       sleepEnd: '2020-04-22 07:15:00.000',
+  //       duration: 8,
+  //       moodBeforeSleep: 2,
+  //       moodAfterSleep: 2,
+  //       sleepScore: null,
+  //       user_id: 1,
+  //     },
+  //     {
+  //       id: 4,
+  //       date: '2020-04-24',
+  //       sleepStart: '2020-04-21 21:15:00.000',
+  //       sleepEnd: '2020-04-22 07:15:00.000',
+  //       duration: 8,
+  //       moodBeforeSleep: 1,
+  //       moodAfterSleep: 3,
+  //       sleepScore: 7,
+  //       user_id: 1,
+  //     },
+  //     {
+  //       id: 5,
+  //       date: '2020-04-25',
+  //       sleepStart: '2020-04-22 021:15:00.000',
+  //       sleepEnd: '2020-04-23 07:15:00',
+  //       duration: 7,
+  //       moodBeforeSleep: 4,
+  //       moodAfterSleep: 4,
+  //       sleepScore: 5.5,
+  //       user_id: 1,
+  //     },
+  //     {
+  //       id: 6,
+  //       date: '2020-04-26',
+  //       sleepStart: '2020-04-21 21:15:00.000',
+  //       sleepEnd: '2020-04-22 07:15:00.000',
+  //       duration: 6,
+  //       moodBeforeSleep: 2,
+  //       moodAfterSleep: 2,
+  //       sleepScore: null,
+  //       user_id: 1,
+  //     },
+  //     {
+  //       id: 7,
+  //       date: '2020-04-27',
+  //       sleepStart: '2020-04-21 21:15:00.000',
+  //       sleepEnd: '2020-04-22 07:15:00.000',
+  //       duration: 4,
+  //       moodBeforeSleep: 2,
+  //       moodAfterSleep: 2,
+  //       sleepScore: null,
+  //       user_id: 1,
+  //     },
+  //   ],
+  // };
 
-  // console.log('CHARTTTTTTTTT', logs);
+  const [useData, setUseData] = useState([
+    {
+      x: new Moment().subtract(7, 'day').format('YYYY/MM/DD').slice(5),
+      y: 0,
+    },
+    {
+      x: new Moment().subtract(6, 'day').format('YYYY/MM/DD').slice(5),
+      y: 0,
+    },
+    {
+      x: new Moment().subtract(5, 'day').format('YYYY/MM/DD').slice(5),
+      y: 0,
+    },
+    {
+      x: new Moment().subtract(4, 'day').format('YYYY/MM/DD').slice(5),
+      y: 0,
+    },
+    {
+      x: new Moment().subtract(3, 'day').format('YYYY/MM/DD').slice(5),
+      y: 0,
+    },
+    {
+      x: new Moment().subtract(2, 'day').format('YYYY/MM/DD').slice(5),
+      y: 0,
+    },
+    {
+      x: new Moment().subtract(1, 'day').format('YYYY/MM/DD').slice(5),
+      y: 0,
+    },
+  ]);
+
+  console.log('CHARTTTTTTTTT', useData[0]);
 
   useEffect(() => {
+    let tmpArr = [];
     if (logs) {
-      setUseData([
-        {
-          x: new Moment(logs[logs.length - 1].date)
+      for (let i = 0; i < logs.length; i++) {
+        let tempData = {
+          x: new Moment(logs[logs.length - 1 - i].date)
             .format('YYYY/MM/DD')
             .slice(5),
-          y: Math.floor(logs[logs.length - 1].duration),
-        },
-        {
-          x: new Moment(logs[logs.length - 2].date)
-            .format('YYYY/MM/DD')
-            .slice(5),
-          y: Math.floor(logs[logs.length - 2].duration),
-        },
-        {
-          x: new Moment(logs[logs.length - 3].date)
-            .format('YYYY/MM/DD')
-            .slice(5),
-          y: Math.floor(logs[logs.length - 3].duration),
-        },
-        {
-          x: new Moment(logs[logs.length - 4].date)
-            .format('YYYY/MM/DD')
-            .slice(5),
-          y: Math.floor(logs[logs.length - 4].duration),
-        },
-        {
-          x: new Moment(logs[logs.length - 5].date)
-            .format('YYYY/MM/DD')
-            .slice(5),
-          y: Math.floor(logs[logs.length - 5].duration),
-        },
-        {
-          x: new Moment(logs[logs.length - 6].date)
-            .format('YYYY/MM/DD')
-            .slice(5),
-          y: Math.floor(logs[logs.length - 6].duration),
-        },
-        {
-          x: new Moment(logs[logs.length - 7].date)
-            .format('YYYY/MM/DD')
-            .slice(5),
-          y: Math.floor(logs[logs.length - 7].duration),
-        },
-      ]);
+          y: Math.floor(logs[logs.length - 1 - i].duration),
+        };
+        tmpArr[i] = tempData;
+      }
     }
+    setUseData(tmpArr);
   }, [logs]);
-
-  // useEffect(() => {
-  //   axiosWithAuth()
-  // })
-
-  // const chartData = {
-  //   { x: logs[logs.length - 1].date, y: d1 },
-  //   { x: logs[logs.length - 1].date, y: d1 },
-  // }
 
   // if (props.logs) {
   //  chartData = {
@@ -170,15 +158,15 @@ const SleepGraph = ({ logs }) => {
   //  }
   // }
 
-  const dummyData = [
-    { x: fakeRes.data[0].date.slice(5), y: fakeRes.data[0].duration },
-    { x: fakeRes.data[1].date.slice(5), y: fakeRes.data[1].duration },
-    { x: fakeRes.data[2].date.slice(5), y: fakeRes.data[2].duration },
-    { x: fakeRes.data[3].date.slice(5), y: fakeRes.data[3].duration },
-    { x: fakeRes.data[4].date.slice(5), y: fakeRes.data[4].duration },
-    { x: fakeRes.data[5].date.slice(5), y: fakeRes.data[5].duration },
-    { x: fakeRes.data[6].date.slice(5), y: fakeRes.data[6].duration },
-  ];
+  // const dummyData = [
+  //   { x: fakeRes.data[0].date.slice(5), y: fakeRes.data[0].duration },
+  //   { x: fakeRes.data[1].date.slice(5), y: fakeRes.data[1].duration },
+  //   { x: fakeRes.data[2].date.slice(5), y: fakeRes.data[2].duration },
+  //   { x: fakeRes.data[3].date.slice(5), y: fakeRes.data[3].duration },
+  //   { x: fakeRes.data[4].date.slice(5), y: fakeRes.data[4].duration },
+  //   { x: fakeRes.data[5].date.slice(5), y: fakeRes.data[5].duration },
+  //   { x: fakeRes.data[6].date.slice(5), y: fakeRes.data[6].duration },
+  // ];
 
   return (
     <div className='graphCard'>
