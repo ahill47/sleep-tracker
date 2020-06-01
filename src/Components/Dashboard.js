@@ -81,28 +81,23 @@ function getDayOfMonth() {
 }
 
 const Dashboard = () => {
-  const userId = localStorage.getItem("id")
   const [data, setData] = useState([]);
   const [open, setOpen] = useState(false);
-
   const [snackOpen, setSnackOpen] = useState(false);
+  const [wasOpened, setWasOpened] = useState(false);
   const username = localStorage.getItem('userName');
   const alertMessage = localStorage.getItem('message');
-
-
-
+  const userId = localStorage.getItem('id');
 
   useEffect(() => {
-    setSnackOpen(true);
+    // setSnackOpen(true);
     axiosWithAuth()
       .get(`/sleep/${userId}`)
       .then((response) => {
-       setData(response.data);
+        setData(response.data);
       })
       .catch((err) => console.log(err));
-  },[open]);
-
-
+  }, [open]);
 
   const entryDialogOpen = () => {
     setOpen(true);
@@ -126,7 +121,7 @@ const Dashboard = () => {
       <h1>Dashboard</h1>
       <div className='dash'>
         <div className='left'>
-          <SleepGraph />
+          <SleepGraph logs={data.data} />
           <Button
             className='entryBtn'
             variant='outlined'
@@ -144,22 +139,21 @@ const Dashboard = () => {
               {'Going to sleep?'}
             </DialogTitle>
             <DialogContent>
-              <DialogContentText id='alert-dialog-slide-description'>
-                <AddEntry handleClose={handleClose}/>
-              </DialogContentText>
+              {/* <DialogContentText id='alert-dialog-slide-description'> */}
+              <AddEntry handleClose={handleClose} />
+              {/* </DialogContentText> */}
             </DialogContent>
             <DialogActions>
               {/* <Button onClick={handleClose} color='primary'>
                 Cancel
               </Button> */}
-              <Button onClick={handleClose} color='primary'>
-               Complete
-              </Button> 
+              {/* <Button onClick={handleClose} color='primary'>
+                Complete
+              </Button> */}
             </DialogActions>
           </Dialog>
           <Snackbar
             open={snackOpen}
-            bodyStyle={{ backgroundColor: '#39869D', color: 'white' }}
             autoHideDuration={3000}
             onClose={handleSnackClose}>
             <Alert onClose={handleSnackClose} severity='success'>
