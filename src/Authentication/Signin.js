@@ -18,7 +18,7 @@ export default function Signin(props) {
     axios
       .post('https://sleeptracker4.herokuapp.com/auth/login', logInData)
       .then((res) => {
-        console.log('res: ', res);
+        // console.log('res: ', res);
         localStorage.setItem('token', res.data.token);
         localStorage.setItem('message', res.data.message);
         const resConfig = JSON.parse(res.config.data);
