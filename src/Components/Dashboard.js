@@ -90,7 +90,7 @@ const Dashboard = () => {
   const userId = localStorage.getItem('id');
 
   useEffect(() => {
-    setSnackOpen(true);
+    // setSnackOpen(true);
     axiosWithAuth()
       .get(`/sleep/${userId}`)
       .then((response) => {

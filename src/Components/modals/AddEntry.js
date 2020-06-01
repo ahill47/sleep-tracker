@@ -32,7 +32,7 @@ const AddEntry = (props) => {
 
   const date = new Moment();
 
-  console.log('USE THIS ONE', date.format('HH:mm:ss'));
+  // console.log('USE THIS ONE', date.format('HH:mm:ss'));
 
   const tomorrow = new Moment().add(1, 'day');
   const [hours, setHours] = useState('');
@@ -47,7 +47,7 @@ const AddEntry = (props) => {
     moodTwo: '1',
   });
 
-  console.log('NOW THIS', formState.finalDurr);
+  // console.log('NOW THIS', formState.finalDurr);
 
   useEffect(() => {
     let now = `${new Moment(formState.startDate).format(
@@ -56,9 +56,9 @@ const AddEntry = (props) => {
     let next = `${new Moment(formState.endDate).format(
       'YYYY-MM-DD'
     )} ${new Moment(formState.endTime).format('HH:mm:ss')}`;
-    console.log(
-      new Moment.duration(new Moment(next).diff(new Moment(now))).asHours()
-    );
+    // console.log(
+    //   new Moment.duration(new Moment(next).diff(new Moment(now))).asHours()
+    // );
     setHours(
       new Moment.duration(new Moment(next).diff(new Moment(now))).asHours()
     );
@@ -103,11 +103,11 @@ const AddEntry = (props) => {
       user_id: userId,
     };
     e.preventDefault();
-    console.log('DATA IN FORM', sleepData);
+    // console.log('DATA IN FORM', sleepData);
     axiosWithAuth()
       .post(`/sleep`, sleepData)
       .then((res) => {
-        console.log(res, 'successfully added');
+        // console.log(res, 'successfully added');
         props.handleClose();
       })
       .catch((err) => console.log('Oops', err));

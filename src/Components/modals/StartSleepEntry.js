@@ -19,7 +19,7 @@ tomorrow.setDate(new Date().getDate() + 1);
 
 const StartSleepEntry = ({ user, handleClose }) => {
   //   console.log(handleClose, 'you are working');
-  console.log('USER IN SLEEP ENTRY', user);
+  // console.log('USER IN SLEEP ENTRY', user);
   // Form State
   const [formState, setFormState] = useState({
     startDate: '',
@@ -79,16 +79,16 @@ const StartSleepEntry = ({ user, handleClose }) => {
     axiosWithAuth()
       .delete(`/sleep/${id}`)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         window.location.reload();
       })
       .catch((err) => console.log('Oops', err));
   };
 
-  console.log(user, 'user');
+  // console.log(user, 'user');
 
   const handleEdit = (id) => {
-    console.log(formState);
+    // console.log(formState);
     // const dummy = {
     //     "startDate": "December 10, 2020",
     //     "startTime": "07:15:00",
@@ -128,7 +128,7 @@ const StartSleepEntry = ({ user, handleClose }) => {
     axiosWithAuth()
       .put(`/sleep/${id}`, sleepData)
       .then((res) => {
-        console.log(res);
+        // console.log(res);
       })
       .catch((err) => console.log('unable to edit sleep', err));
     window.location.reload();

@@ -96,42 +96,58 @@ const SleepGraph = ({ logs }) => {
       },
     ],
   };
-  let useData;
+  const [useData, setUseData] = useState([]);
 
-  console.log('CHARTTTTTTTTT', logs);
+  // console.log('CHARTTTTTTTTT', logs);
 
-  if (logs) {
-    useData = [
-      {
-        x: new Moment(logs[logs.length - 1].date).format('YYYY/MM/DD').slice(5),
-        y: Math.floor(logs[logs.length - 1].duration),
-      },
-      {
-        x: new Moment(logs[logs.length - 2].date).format('YYYY/MM/DD').slice(5),
-        y: Math.floor(logs[logs.length - 2].duration),
-      },
-      {
-        x: new Moment(logs[logs.length - 3].date).format('YYYY/MM/DD').slice(5),
-        y: Math.floor(logs[logs.length - 3].duration),
-      },
-      {
-        x: new Moment(logs[logs.length - 4].date).format('YYYY/MM/DD').slice(5),
-        y: Math.floor(logs[logs.length - 4].duration),
-      },
-      {
-        x: new Moment(logs[logs.length - 5].date).format('YYYY/MM/DD').slice(5),
-        y: Math.floor(logs[logs.length - 5].duration),
-      },
-      {
-        x: new Moment(logs[logs.length - 6].date).format('YYYY/MM/DD').slice(5),
-        y: Math.floor(logs[logs.length - 6].duration),
-      },
-      {
-        x: new Moment(logs[logs.length - 7].date).format('YYYY/MM/DD').slice(5),
-        y: Math.floor(logs[logs.length - 7].duration),
-      },
-    ];
-  }
+  useEffect(() => {
+    if (logs) {
+      setUseData([
+        {
+          x: new Moment(logs[logs.length - 1].date)
+            .format('YYYY/MM/DD')
+            .slice(5),
+          y: Math.floor(logs[logs.length - 1].duration),
+        },
+        {
+          x: new Moment(logs[logs.length - 2].date)
+            .format('YYYY/MM/DD')
+            .slice(5),
+          y: Math.floor(logs[logs.length - 2].duration),
+        },
+        {
+          x: new Moment(logs[logs.length - 3].date)
+            .format('YYYY/MM/DD')
+            .slice(5),
+          y: Math.floor(logs[logs.length - 3].duration),
+        },
+        {
+          x: new Moment(logs[logs.length - 4].date)
+            .format('YYYY/MM/DD')
+            .slice(5),
+          y: Math.floor(logs[logs.length - 4].duration),
+        },
+        {
+          x: new Moment(logs[logs.length - 5].date)
+            .format('YYYY/MM/DD')
+            .slice(5),
+          y: Math.floor(logs[logs.length - 5].duration),
+        },
+        {
+          x: new Moment(logs[logs.length - 6].date)
+            .format('YYYY/MM/DD')
+            .slice(5),
+          y: Math.floor(logs[logs.length - 6].duration),
+        },
+        {
+          x: new Moment(logs[logs.length - 7].date)
+            .format('YYYY/MM/DD')
+            .slice(5),
+          y: Math.floor(logs[logs.length - 7].duration),
+        },
+      ]);
+    }
+  }, [logs]);
 
   // useEffect(() => {
   //   axiosWithAuth()
