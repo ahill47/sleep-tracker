@@ -10,8 +10,9 @@ import '../../node_modules/react-vis/dist/style.css';
 import { Card, CardContent } from 'material-ui-core';
 import RVStyles from 'react-vis-styles';
 import axiosWithAuth from './axiosWithAuth';
+import Moment from 'moment';
 
-const SleepGraph = (props) => {
+const SleepGraph = ({ logs }) => {
   const fakeRes = {
     id: 1,
     username: 'joedoe',
@@ -95,22 +96,63 @@ const SleepGraph = (props) => {
       },
     ],
   };
+  let useData;
 
-  console.log('CHARTTTTTTTTT', props.logs);
+  console.log('CHARTTTTTTTTT', logs);
 
-  // const chartData = props.logs.map((log, i) => console.log(log));
+  if (logs) {
+    useData = [
+      {
+        x: new Moment(logs[logs.length - 1].date).format('YYYY/MM/DD').slice(5),
+        y: Math.floor(logs[logs.length - 1].duration),
+      },
+      {
+        x: new Moment(logs[logs.length - 2].date).format('YYYY/MM/DD').slice(5),
+        y: Math.floor(logs[logs.length - 2].duration),
+      },
+      {
+        x: new Moment(logs[logs.length - 3].date).format('YYYY/MM/DD').slice(5),
+        y: Math.floor(logs[logs.length - 3].duration),
+      },
+      {
+        x: new Moment(logs[logs.length - 4].date).format('YYYY/MM/DD').slice(5),
+        y: Math.floor(logs[logs.length - 4].duration),
+      },
+      {
+        x: new Moment(logs[logs.length - 5].date).format('YYYY/MM/DD').slice(5),
+        y: Math.floor(logs[logs.length - 5].duration),
+      },
+      {
+        x: new Moment(logs[logs.length - 6].date).format('YYYY/MM/DD').slice(5),
+        y: Math.floor(logs[logs.length - 6].duration),
+      },
+      {
+        x: new Moment(logs[logs.length - 7].date).format('YYYY/MM/DD').slice(5),
+        y: Math.floor(logs[logs.length - 7].duration),
+      },
+    ];
+  }
 
-  // if (props.logs) {
-  //   console.log('LOGSSS', props.logs.reverse());
-  //   const testDiff = Math.abs(
-  //     (new Date(props.logs[0].sleepStart).getTime() -
-  //       new Date(props.logs[0].sleepEnd).getTime()) /
-  //       36e5
-  //   );
-  //   console.log('DIFFERENCE', new Date(props.logs[0].sleepStart).getHours());
+  // useEffect(() => {
+  //   axiosWithAuth()
+  // })
+
+  // const chartData = {
+  //   { x: logs[logs.length - 1].date, y: d1 },
+  //   { x: logs[logs.length - 1].date, y: d1 },
   // }
 
-  // console.log('THIS ONE THIS ONE', chartData);
+  // if (props.logs) {
+  //  chartData = {
+  //   { x: props.logs[0].date.slice(5), y: fakeRes.data[0].duration },
+  //   { x: fakeRes.data[1].date.slice(5), y: fakeRes.data[1].duration },
+  //   { x: fakeRes.data[2].date.slice(5), y: fakeRes.data[2].duration },
+  //   { x: fakeRes.data[3].date.slice(5), y: fakeRes.data[3].duration },
+  //   { x: fakeRes.data[4].date.slice(5), y: fakeRes.data[4].duration },
+  //   { x: fakeRes.data[5].date.slice(5), y: fakeRes.data[5].duration },
+  //   { x: fakeRes.data[6].date.slice(5), y: fakeRes.data[6].duration },
+  //  }
+  // }
 
   const dummyData = [
     { x: fakeRes.data[0].date.slice(5), y: fakeRes.data[0].duration },
@@ -130,7 +172,7 @@ const SleepGraph = (props) => {
         <HorizontalGridLines />
         <VerticalBarSeries
           data-testid='vertical-barchart'
-          data={dummyData}
+          data={useData}
           barWidth={0.8}
           opacity={0.9}
           color='#195e83'

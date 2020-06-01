@@ -35,17 +35,34 @@ const AddEntry = (props) => {
   console.log('USE THIS ONE', date.format('HH:mm:ss'));
 
   const tomorrow = new Moment().add(1, 'day');
+  const [hours, setHours] = useState('');
 
   // Form State
   const [formState, setFormState] = useState({
-    startDate: date.format('LL'),
+    startDate: date.format('YYYY-MM-DD'),
     startTime: new Moment(date, 'HH:mm:ss'),
-    duration: '',
     endDate: tomorrow.format('LL'),
     endTime: new Moment(tomorrow, 'HH:mm:ss'),
     moodOne: '1',
     moodTwo: '1',
   });
+
+  console.log('NOW THIS', formState.finalDurr);
+
+  useEffect(() => {
+    let now = `${new Moment(formState.startDate).format(
+      'YYYY-MM-DD'
+    )} ${new Moment(formState.startTime).format('HH:mm:ss')}`;
+    let next = `${new Moment(formState.endDate).format(
+      'YYYY-MM-DD'
+    )} ${new Moment(formState.endTime).format('HH:mm:ss')}`;
+    console.log(
+      new Moment.duration(new Moment(next).diff(new Moment(now))).asHours()
+    );
+    setHours(
+      new Moment.duration(new Moment(next).diff(new Moment(now))).asHours()
+    );
+  }, [formState, setFormState]);
 
   // let d = new Date();
   // let optionsDate = {
@@ -68,6 +85,7 @@ const AddEntry = (props) => {
       startTime,
       endDate,
       endTime,
+      finalDurr,
       moodOne,
       moodTwo,
     } = formState;
@@ -79,7 +97,7 @@ const AddEntry = (props) => {
       sleepEnd: `${new Moment(endDate).format('LL')} ${new Moment(
         endTime
       ).format('HH:mm:ss')}`,
-      duration: 10,
+      duration: hours,
       moodBeforeSleep: moodOne,
       moodAfterSleep: moodTwo,
       user_id: userId,
@@ -108,19 +126,9 @@ const AddEntry = (props) => {
   //   // validateChange(event);
   // };
 
-  const calculateDuration = () => {
-    let date1 = new Date(formState.sleepStart).getHours();
-    let date2 = new Date(formState.sleepEnd).getHours();
-
-    // if (props.logs) {
-    //   console.log('LOGSSS', props.logs.reverse());
-    //   const testDiff = Math.abs(
-    //     (new Date(props.logs[0].sleepStart).getTime() -
-    //       new Date(props.logs[0].sleepEnd).getTime()) /
-    //       36e5
-    //   );
-    //   console.log('DIFFERENCE', new Date(props.logs[0].sleepStart).getHours());
-    // }
+  const calculateDuration = (s, e) => {
+    const tempDuration = new Moment.duration(e.diff(s));
+    const hourDiff = tempDuration.asHours();
   };
 
   const startDateChanged = (date) => {
