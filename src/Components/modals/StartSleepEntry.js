@@ -18,7 +18,7 @@ const tomorrow = new Date();
 tomorrow.setDate(new Date().getDate() + 1);
 
 const StartSleepEntry = ({ user, handleClose }) => {
-  console.log(handleClose, 'you are working');
+  //   console.log(handleClose, 'you are working');
   console.log('USER IN SLEEP ENTRY', user);
   // Form State
   const [formState, setFormState] = useState({
@@ -75,7 +75,7 @@ const StartSleepEntry = ({ user, handleClose }) => {
   // };
 
   const handleDelete = (id) => {
-    console.log(id);
+    // console.log(id);
     axiosWithAuth()
       .delete(`/sleep/${id}`)
       .then((res) => {
